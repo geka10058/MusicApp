@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">MusicApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="test_artist">Eminem, Royce Da 5\'9, Big Sean, Danny Brown, Dej Loaf Trick Trick</string>
+    <string name="test_title">Detroit Vs. Everybody</string>
+    <string name="test_full_duration">3:45</string>
+    <string name="test_current_duration">0:00</string>
+
 </resources>

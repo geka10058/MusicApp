@@ -1,4 +1,4 @@
-package com.example.musicapp.ui.player
+package com.example.musicapp.ui
 
 import androidx.fragment.app.Fragment
 import com.example.musicapp.R

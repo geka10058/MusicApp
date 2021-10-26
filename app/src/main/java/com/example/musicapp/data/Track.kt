@@ -1,15 +1,13 @@
 package com.example.musicapp.data
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
-@Parcelize
+@JsonClass(generateAdapter = true)
 data class Track (
-    val title: String,
-    val artist: String,
-    val bitmapUri: String,
-    val trackUri: String,
-    val duration: Int
-    ):Parcelable{
-
-}
+    @field:Json(name = "title") val title: String,
+    @field:Json(name = "artist") val artist: String,
+    @field:Json(name = "bitmapUri") val bitmapUri: String,
+    @field:Json(name = "trackUri") val trackUri: String,
+    @field:Json(name = "duration") val duration: Long
+)

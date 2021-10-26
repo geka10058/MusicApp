@@ -33,7 +33,7 @@
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:paddingEnd="20dp"
-            android:text="Detroit Vs. Everybody"
+            android:text="@string/test_title"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -48,7 +48,7 @@
             android:maxLines="1"
             android:paddingBottom="5dp"
             android:paddingEnd="5dp"
-            android:text="Eminem, Royce Da 5'9, Big Sean, Danny Brown, Dej Loaf Trick Trick"
+            android:text="@string/test_artist"
             android:textSize="14sp"
             />
 
@@ -60,7 +60,7 @@
             android:layout_centerVertical="true"
             android:paddingStart="5dp"
             android:paddingEnd="10dp"
-            android:text="3:45"
+            android:text="@string/test_full_duration"
             android:textSize="18sp" />
 
 
