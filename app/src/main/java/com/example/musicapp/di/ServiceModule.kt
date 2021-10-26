@@ -2,6 +2,9 @@ package com.example.musicapp.di
 
 import android.annotation.SuppressLint
 import android.content.Context
+import com.example.musicapp.data.Repository
+import com.example.musicapp.data.Track
+import com.example.musicapp.data.TrackList
 import com.google.android.exoplayer2.C
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.audio.AudioAttributes
