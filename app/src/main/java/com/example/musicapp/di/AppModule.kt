@@ -8,18 +8,17 @@ import com.example.musicapp.R
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.internal.managers.ApplicationComponentManager
 import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 object AppModule {
 
     @Singleton
     @Provides
-    fun provideGliseInstance(@ApplicationContext context: Context) = Glide.with(context)
+    fun provideGlideInstance(@ApplicationContext context: Context) = Glide.with(context)
         .setDefaultRequestOptions(
             RequestOptions()
                 .placeholder(R.drawable.ic_album_image)
