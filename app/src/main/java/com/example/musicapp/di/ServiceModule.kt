@@ -29,6 +29,8 @@ object ServiceModule {
         .setUsage(C.USAGE_MEDIA)
         .build()
 
+    @ServiceScoped
+    @Provides
     fun provideExoPlayer(
         @ApplicationContext context: Context,
         audioAttributes: AudioAttributes

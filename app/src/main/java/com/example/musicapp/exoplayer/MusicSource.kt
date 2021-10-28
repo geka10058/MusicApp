@@ -13,7 +13,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class MusicSource @Inject constructor(private val repository: Repository) {
+class MusicSource/* @Inject constructor */(
+    private val repository: Repository) {
 
     var songs = emptyList<MediaMetadataCompat>()
 
@@ -31,7 +32,7 @@ class MusicSource @Inject constructor(private val repository: Repository) {
                 .putString(MediaMetadataCompat.METADATA_KEY_MEDIA_URI, song.trackUri)
                 .putString(MediaMetadataCompat.METADATA_KEY_DISPLAY_ICON_URI, song.bitmapUri)
                 .putString(MediaMetadataCompat.METADATA_KEY_ALBUM_ART_URI, song.bitmapUri)
-                .putString(MediaMetadataCompat.METADATA_KEY_DURATION, song.duration.toString())
+                //.putString(MediaMetadataCompat.METADATA_KEY_DURATION, song.duration.toString())
                 .build()
         }
         state = STATE_INITIALIZED
@@ -58,7 +59,7 @@ class MusicSource @Inject constructor(private val repository: Repository) {
             .setIconUri(song.description.iconUri)
             .build()
         MediaBrowserCompat.MediaItem(desc, MediaBrowserCompat.MediaItem.FLAG_PLAYABLE)
-    } //TODO .toMutableList()
+    }.toMutableList()
 
     private val onReadyListeners = mutableListOf<(Boolean) -> Unit>()
 
