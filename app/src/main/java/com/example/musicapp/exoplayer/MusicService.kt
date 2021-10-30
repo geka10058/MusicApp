@@ -25,7 +25,7 @@ import javax.inject.Inject
 
 private const val SERVICE_TAG = "MusicService"
 
-//@AndroidEntryPoint
+@AndroidEntryPoint
 class MusicService : MediaBrowserServiceCompat() {
 
     @Inject
@@ -44,7 +44,8 @@ class MusicService : MediaBrowserServiceCompat() {
 
     private lateinit var mediaSession: MediaSessionCompat
     private lateinit var mediaSessionConnector: MediaSessionConnector
-    private lateinit var musicPlayerEventListener: MusicPlayerEventListener
+    private lateinit var musicPlayerEventListener: MusicPlayerEventListener //TODO by lazy {MusicPlayerEventListener()}
+
     private lateinit var musicNotificationManager: MusicNotificationManager
 
     var isForegroundService = false
@@ -66,7 +67,7 @@ class MusicService : MediaBrowserServiceCompat() {
 
         mediaSession = MediaSessionCompat(this, SERVICE_TAG).apply {
             setSessionActivity(activityIntent)
-            isActive = true
+            isActive = true //TODO
         }
 
         sessionToken = mediaSession.sessionToken
@@ -95,7 +96,7 @@ class MusicService : MediaBrowserServiceCompat() {
 
         musicPlayerEventListener = MusicPlayerEventListener(this)
         exoPlayer.addListener(musicPlayerEventListener)
-        musicNotificationManager.showNotificaation(exoPlayer)
+        // TODO musicNotificationManager.showNotificaation(exoPlayer)
     }
 
     private inner class MusicQueueNavigator : TimelineQueueNavigator(mediaSession) {

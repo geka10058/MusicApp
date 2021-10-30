@@ -1,7 +1,9 @@
 package com.example.musicapp.di
 
 import android.annotation.SuppressLint
+import android.app.Application
 import android.content.Context
+import android.content.res.AssetManager
 import com.example.musicapp.data.Repository
 import com.example.musicapp.data.Track
 import com.example.musicapp.data.TrackList
@@ -21,6 +23,14 @@ import dagger.hilt.android.scopes.ServiceScoped
 @Module
 @InstallIn(ServiceComponent::class)
 object ServiceModule {
+
+    @ServiceScoped
+    @Provides
+    fun provideAssetManager(app: Application): AssetManager = app.assets
+
+    @ServiceScoped
+    @Provides
+    fun provideRepository(assetManager: AssetManager) = Repository(assetManager)
 
     @ServiceScoped
     @Provides

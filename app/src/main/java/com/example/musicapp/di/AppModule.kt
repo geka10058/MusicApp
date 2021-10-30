@@ -1,5 +1,6 @@
 package com.example.musicapp.di
 
+import android.app.Application
 import android.content.Context
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -19,13 +20,19 @@ object AppModule {
 
     @Singleton
     @Provides
+    fun provideAppContext(app: Application): Context = app.applicationContext
+
+    @Singleton
+    @Provides
     fun provideMusicServiceConnection(
         @ApplicationContext context: Context
     ) = MusicServiceConnection(context)
 
     @Singleton
     @Provides
-    fun provideGlideInstance(@ApplicationContext context: Context) = Glide.with(context)
+    fun provideGlideInstance(
+        @ApplicationContext context: Context
+    ) = Glide.with(context)
         .setDefaultRequestOptions(
             RequestOptions()
                 .placeholder(R.drawable.ic_album_image)

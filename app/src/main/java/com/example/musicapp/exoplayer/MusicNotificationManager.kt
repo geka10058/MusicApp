@@ -24,11 +24,25 @@ class MusicNotificationManager(
 ) {
 
 
-    private val notificationManager: PlayerNotificationManager
+    /*private val notificationManager: PlayerNotificationManager
 
     init {
         val mediaController = MediaControllerCompat(context, sessionToken)
-        notificationManager = PlayerNotificationManager.createWithNotificationChannel(
+        notificationManager =
+            PlayerNotificationManager.Builder(context, NOTIFICATION_ID, NOTIFICATION_CHANNEL_ID)
+                .setChannelNameResourceId(R.string.notification_channel_name)
+                .setChannelDescriptionResourceId(R.string.notification_channel_description)
+                .setSmallIconResourceId(R.drawable.music_placeholder)
+                .setNotificationListener(MusicPlayerNotificationListener())
+                .setMediaDescriptionAdapter(DescriptionAdapter(mediaController))
+                .build().apply {
+                    setMediaSessionToken(sessionToken)
+                }
+    }*/
+    /*init {
+        val mediaController = MediaControllerCompat(context, sessionToken)
+        notificationManager =
+            PlayerNotificationManager.createWithNotificationChannel(
             context,
             NOTIFICATION_CHANNEL_ID,
             R.string.notification_channel_name,
@@ -40,11 +54,11 @@ class MusicNotificationManager(
             setSmallIcon(R.drawable.ic_album_image)  //TODO заменить на изображение альбома из song.description.iconUri
             setMediaSessionToken(sessionToken)
         }
-    }
+    }*/
 
-    fun showNotificaation(player: Player){
+    /*fun showNotificaation(player: Player){
         notificationManager.setPlayer(player)
-    }
+    }*/
 
     private inner class DescriptionAdapter(
         private val mediaController: MediaControllerCompat

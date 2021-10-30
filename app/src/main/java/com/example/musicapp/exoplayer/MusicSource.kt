@@ -6,24 +6,26 @@ import android.support.v4.media.MediaMetadataCompat
 import androidx.core.net.toUri
 import com.example.musicapp.data.Repository
 import com.example.musicapp.exoplayer.State.*
+import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
+import dagger.Provides
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class MusicSource/* @Inject constructor */(
+class MusicSource @Inject constructor(
     private val repository: Repository) {
 
     var songs = emptyList<MediaMetadataCompat>()
 
     suspend fun fetchMediaData() = withContext(Dispatchers.IO) {
         state = STATE_INITIALIZING
-        val allSongs = repository.getTrackList()
+        val allSongs = repository.catalog
         songs = allSongs!!.map { song ->
             MediaMetadataCompat.Builder()
-                .putString(MediaMetadataCompat.METADATA_KEY_MEDIA_ID, song.title)
+                .putString(MediaMetadataCompat.METADATA_KEY_MEDIA_ID, song.id.toString())
                 .putString(MediaMetadataCompat.METADATA_KEY_TITLE, song.title)
                 .putString(MediaMetadataCompat.METADATA_KEY_DISPLAY_TITLE, song.title)
                 .putString(MediaMetadataCompat.METADATA_KEY_ARTIST, song.artist)
@@ -43,8 +45,13 @@ class MusicSource/* @Inject constructor */(
         songs.forEach { song ->
             val mediaSource = ProgressiveMediaSource.Factory(dataSourceFactory)
                 .createMediaSource(
-                    song.getString(MediaMetadataCompat.METADATA_KEY_MEDIA_URI).toUri()
+                    MediaItem.Builder()
+                        .setUri(song.getString(MediaMetadataCompat.METADATA_KEY_MEDIA_URI).toUri())
+                        .build()
                 )
+            /*.createMediaSource(
+                    song.getString(MediaMetadataCompat.METADATA_KEY_MEDIA_URI).toUri()
+                )*/
             concatenatingMediaSource.addMediaSource(mediaSource)
         }
         return concatenatingMediaSource
@@ -55,7 +62,7 @@ class MusicSource/* @Inject constructor */(
             .setMediaUri(song.getString(MediaMetadataCompat.METADATA_KEY_MEDIA_URI).toUri())
             .setTitle(song.description.title)
             .setSubtitle(song.description.subtitle)
-            .setMediaId(song.description.title.toString())
+            .setMediaId(song.description.mediaId)
             .setIconUri(song.description.iconUri)
             .build()
         MediaBrowserCompat.MediaItem(desc, MediaBrowserCompat.MediaItem.FLAG_PLAYABLE)

@@ -5,12 +5,9 @@ import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import dagger.Provides
-import dagger.hilt.android.scopes.ServiceScoped
 import javax.inject.Inject
 
-
-class Repository@Inject constructor(
+class TrackPlaylist@Inject constructor(
     private val assetManager: AssetManager
 ) {
 
@@ -33,10 +30,6 @@ class Repository@Inject constructor(
     }
 
     companion object {
-        const val FILE_NAME = "Tracks.json"
+        const val FILE_NAME = "music.json"
     }
 }
-/*
-class Repository(private val trackList: TrackList) {
-    fun getTrackList() = trackList.getTrackList()
-}*/

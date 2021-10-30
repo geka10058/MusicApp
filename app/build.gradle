@@ -68,13 +68,13 @@ dependencies {
     implementation 'io.insert-koin:koin-android:3.1.2'
 
     //ExoPlayer
-    implementation 'com.google.android.exoplayer:exoplayer:2.11.8'
-    implementation 'com.google.android.exoplayer:exoplayer-ui:2.11.8'
-    implementation 'com.google.android.exoplayer:extension-mediasession:2.11.8'
+    implementation 'com.google.android.exoplayer:exoplayer:2.15.1'
+    implementation 'com.google.android.exoplayer:exoplayer-ui:2.15.1'
+    implementation 'com.google.android.exoplayer:extension-mediasession:2.15.1'
 
     //moshi
     implementation "com.squareup.moshi:moshi:1.12.0"
-    kapt "com.squareup.moshi:moshi-kotlin-codegen:1.12.0"
+    implementation "com.squareup.moshi:moshi-kotlin:1.12.0"
 
     // binding
     implementation 'com.github.kirich1409:viewbindingpropertydelegate:1.4.7'
