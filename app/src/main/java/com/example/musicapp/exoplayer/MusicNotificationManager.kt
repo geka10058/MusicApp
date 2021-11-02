@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.example.musicapp.R
+import com.example.musicapp.exoplayer.callbacks.MusicPlayerNotificationListener
 import com.example.musicapp.other.Constants.NOTIFICATION_CHANNEL_ID
 import com.example.musicapp.other.Constants.NOTIFICATION_ID
 import com.google.android.exoplayer2.Player
@@ -24,7 +25,7 @@ class MusicNotificationManager(
 ) {
 
 
-    /*private val notificationManager: PlayerNotificationManager
+    private val notificationManager: PlayerNotificationManager
 
     init {
         val mediaController = MediaControllerCompat(context, sessionToken)
@@ -32,13 +33,13 @@ class MusicNotificationManager(
             PlayerNotificationManager.Builder(context, NOTIFICATION_ID, NOTIFICATION_CHANNEL_ID)
                 .setChannelNameResourceId(R.string.notification_channel_name)
                 .setChannelDescriptionResourceId(R.string.notification_channel_description)
-                .setSmallIconResourceId(R.drawable.music_placeholder)
-                .setNotificationListener(MusicPlayerNotificationListener())
+                .setSmallIconResourceId(R.drawable.ic_album_image)
+                .setNotificationListener(notificationListener)
                 .setMediaDescriptionAdapter(DescriptionAdapter(mediaController))
                 .build().apply {
                     setMediaSessionToken(sessionToken)
                 }
-    }*/
+    }
     /*init {
         val mediaController = MediaControllerCompat(context, sessionToken)
         notificationManager =
@@ -56,14 +57,21 @@ class MusicNotificationManager(
         }
     }*/
 
-    /*fun showNotificaation(player: Player){
+    fun showNotification(player: Player){
         notificationManager.setPlayer(player)
-    }*/
+    }
+
+    fun removeNotification() {
+        notificationManager.setPlayer(null)
+    }
 
     private inner class DescriptionAdapter(
         private val mediaController: MediaControllerCompat
     ) : PlayerNotificationManager.MediaDescriptionAdapter {
+
+        private var currentBitmap: Bitmap? = null
         override fun getCurrentContentTitle(player: Player): CharSequence {
+            newSongCallback()
             return mediaController.metadata.description.title.toString()
         }
 
@@ -87,12 +95,12 @@ class MusicNotificationManager(
                         transition: Transition<in Bitmap>?
                     ) {
                         callback.onBitmap(resource)
+                        currentBitmap = resource
                     }
 
                     override fun onLoadCleared(placeholder: Drawable?) = Unit
                 })
-            return null
+            return currentBitmap
         }
     }
-
 }

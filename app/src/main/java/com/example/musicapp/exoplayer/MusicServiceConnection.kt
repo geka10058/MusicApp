@@ -33,7 +33,6 @@ class MusicServiceConnection(context: Context) {
     lateinit var mediaController: MediaControllerCompat
 
     private val mediaBrowserConnectionCallback = MediaBrowserConnectionCallback(context)
-
     private val mediaBrowser = MediaBrowserCompat(
         context,
         ComponentName(

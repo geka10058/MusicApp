@@ -1,5 +1,6 @@
 package com.example.musicapp.adapters
 
+import android.util.Log
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -16,46 +17,15 @@ import kotlinx.android.synthetic.main.item_mini.view.*
 import javax.inject.Inject
 
 class SongAdapter @Inject constructor(
-    private val context: Context,
     private val glide: RequestManager
-) : RecyclerView.Adapter<SongAdapter.SongViewHolder>() {
+) : BaseSongAdapter(R.layout.item_mini) {
+//RecyclerView.Adapter<SongAdapter.SongViewHolder>() {
 
-    inner class SongViewHolder(
-        private val binding: ItemMiniBinding
-    ) : RecyclerView.ViewHolder(binding.root){
-        val tvTitle = binding.textViewTitle
-        val tvArtist = binding.textViewArtist
-        val ivAlbumImage = binding.albumImageView
-    }
-
-
-
-
-    private val differ = AsyncListDiffer(this, diffCallback)
-
-    var tracks: List<Track>
-        get() = differ.currentList
-        set(value) = differ.submitList(value)
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
-        val binding = ItemMiniBinding.inflate(layoutInflater,parent,false)
-        return SongViewHolder(binding)
-
-    }
+    override val differ = AsyncListDiffer(this, diffCallback)
 
     override fun onBindViewHolder(holder: SongViewHolder, position: Int) {
-        glide.load(tracks[position].bitmapUri).into(holder.ivAlbumImage)
-        holder.tvTitle.text = tracks[position].title
-        holder.tvArtist.text = tracks[position].artist
-        holder.itemView.run {
-            setOnClickListener {
-                onItemClickListener?.let { click ->
-                    click(tracks[position])
-                }
-            }
-        }
-    /*val track = tracks[position]
+
+        val track = tracks[position]
         holder.itemView.apply {
             text_view_title.text = track.title
             text_view_artist.text = track.artist
@@ -63,13 +33,61 @@ class SongAdapter @Inject constructor(
 
             setOnClickListener {
                 onItemClickListener?.let { click ->
+                    //notifyDataSetChanged()
+                    click(track)
+                    Log.d("AppDebug", "track kicked")
+                }
+            }
+        }
+        /*    holder.bind(tracks[position])
+        *//*val track = tracks[position]
+        glide.load(track.bitmapUri).into(holder.ivAlbumImage)
+        holder.tvTitle.text = track.title
+        holder.tvArtist.text = track.artist
+        holder.itemView.run {
+            setOnClickListener {
+                onItemClickListener?.let { click ->
                     click(track)
                 }
             }
         }*/
     }
+    /*var currentPlayingSongId: Int = 0
+
+    var tracks: List<Track>
+        get() = differ.currentList
+        set(value) = differ.submitList(value)
+
+    inner class SongViewHolder(
+        private val binding: ItemMiniBinding) :
+        RecyclerView.ViewHolder(binding.root){
+        fun bind(track: Track){
+            with(binding){
+                textViewTitle.text = track.title
+                textViewArtist.text = track.artist
+                glide.load(track.bitmapUri).into(albumImageView)
+
+                cvItem.setOnClickListener{
+                    onItemClickListener?.let { click ->
+                        currentPlayingSongId = track.id
+                        notifyDataSetChanged()
+                        click(track)
+                        Log.d("AppDebug", "track kicked")
+                    }
+                }
+            }
+        }
+    }*/
+
+    /*override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongViewHolder {
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val binding = ItemMiniBinding.inflate(layoutInflater,parent,false)
+        return SongViewHolder(binding)
+
+    }
 
     private var onItemClickListener: ((Track) -> Unit)? = null
+
     fun setOnItemClickListener(listener: (Track) -> Unit){
         onItemClickListener = listener
     }
@@ -88,5 +106,5 @@ class SongAdapter @Inject constructor(
                 return oldItem.hashCode() == newItem.hashCode()
             }
         }
-    }
+    }*/
 }

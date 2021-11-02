@@ -2,6 +2,8 @@ package com.example.musicapp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.RequestManager
 import com.example.musicapp.data.Track
 import com.squareup.moshi.Moshi

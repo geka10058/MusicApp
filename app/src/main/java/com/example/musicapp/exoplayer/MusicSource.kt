@@ -20,10 +20,27 @@ class MusicSource @Inject constructor(
 
     var songs = emptyList<MediaMetadataCompat>()
 
+    private val onReadyListeners = mutableListOf<(Boolean) -> Unit>()
+
+    private var state: State = STATE_CREATED
+        set(value) {
+            if (value == STATE_INITIALIZED || value == STATE_ERROR) {
+                synchronized(onReadyListeners) {
+                    field = value
+                    onReadyListeners.forEach{ listener ->
+                        listener(state == STATE_INITIALIZED)
+                    }
+                }
+            } else {
+                field = value
+            }
+
+        }
+
     suspend fun fetchMediaData() = withContext(Dispatchers.IO) {
         state = STATE_INITIALIZING
         val allSongs = repository.catalog
-        songs = allSongs!!.map { song ->
+        songs = allSongs.map { song ->
             MediaMetadataCompat.Builder()
                 .putString(MediaMetadataCompat.METADATA_KEY_MEDIA_ID, song.id.toString())
                 .putString(MediaMetadataCompat.METADATA_KEY_TITLE, song.title)
@@ -68,30 +85,13 @@ class MusicSource @Inject constructor(
         MediaBrowserCompat.MediaItem(desc, MediaBrowserCompat.MediaItem.FLAG_PLAYABLE)
     }.toMutableList()
 
-    private val onReadyListeners = mutableListOf<(Boolean) -> Unit>()
-
-    private var state: State = STATE_CREATED
-        set(value) {
-            if (value == STATE_INITIALIZED || value == STATE_ERROR) {
-                synchronized(onReadyListeners) {
-                    field = value
-                    onReadyListeners.forEach{ listener ->
-                        listener(state == STATE_INITIALIZED)
-                    }
-                }
-            } else {
-                field = value
-            }
-
-        }
-
     fun whenReady(action: (Boolean) -> Unit): Boolean {
-        if(state == STATE_CREATED || state == STATE_INITIALIZING) {
+        return if(state == STATE_CREATED || state == STATE_INITIALIZING) {
             onReadyListeners += action
-            return false
+            false
         } else {
             action(state == STATE_INITIALIZED)
-            return true
+            true
         }
     }
 

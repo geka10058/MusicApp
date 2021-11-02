@@ -1,12 +1,9 @@
 package com.example.musicapp.di
 
-import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.content.res.AssetManager
 import com.example.musicapp.data.Repository
-import com.example.musicapp.data.Track
-import com.example.musicapp.data.TrackList
 import com.google.android.exoplayer2.C
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.audio.AudioAttributes
@@ -53,5 +50,5 @@ object ServiceModule {
     @Provides
     fun provideDataSourceFactory(
         @ApplicationContext context: Context
-    ) = DefaultDataSourceFactory(context, Util.getUserAgent(context,"Music App"))
+    ) = DefaultDataSourceFactory(context, Util.getUserAgent(context,"Music App"))    //R.string.app_name.toString()
 }

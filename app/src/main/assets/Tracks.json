@@ -1,34 +1,90 @@
 [
   {
     "id": 1,
+    "title": "Lone Digger",
+    "artist": "Caravan Palace",
+    "bitmapUri": "https://i.ytimg.com/vi/XSHX0GFfpnA/mqdefault.jpg",
+    "trackUri": "https://muz.apporange.space/get/cuts/d5/53/d5536851b7006df20b66a3a6c1264ee3/60426665/muzapporangespace_Caravan_Palace_-_Lone_Digger_b128f0d230.mp3"
+  },
+  {
+    "id": 2,
+    "title": "Три полоски",
+    "artist": "Amatory vs Animal ДжаZ",
+    "bitmapUri": "https://album-info.ru/Shared/Cover/2012/39279_Small.jpg",
+    "trackUri": "https://muz.apporange.space/get/cuts/37/5c/375cecee37a30823a7e89971a574f932/62894667/muzapporangespace_Amatory_vs_Animal_DzhaZ_-_Dzhinsy_porezany_Leto_tri_poloski_na_kedakhpod_teplym_dozhdem_b128f0d224.mp3"
+  },
+  {
+    "id": 3,
+    "title": "Мне нравится",
+    "artist": "Biicla, Polovinka",
+    "bitmapUri": "https://sellamusic.org/covers/a/232/7ad/520010.jpg",
+    "trackUri": "https://muz.apporange.space/get/cuts/c3/45/c3450a1a797fcee353bc78e07711c341/63876331/muzapporangespace_Biicla_Polovinka_-_Mne_nravitsya_b128f0d203.mp3"
+  },
+  {
+    "id": 4,
+    "title": "Печаль",
+    "artist": "Порнофильмы, BaseFace",
+    "bitmapUri": "https://sun9-56.userapi.com/fIi7fR7gpwCpYKpFLjx9M4VGu7ZWdQL30qIteQ/N6yTSOLTCZ0.jpg",
+    "trackUri": "https://muz.apporange.space/get/cuts/f2/11/f2119ece8ed35f996096c7438def349f/71286749/muzapporangespace_Pornofilmy_BaseFace_-_Pechal_b128f0d195.mp3"
+  },
+  {
+    "id": 5,
+    "title": "Upside Down",
+    "artist": "Grouplove, Whethan",
+    "bitmapUri": "https://i.ytimg.com/vi/uy5CyvOlH6w/maxresdefault.jpg",
+    "trackUri": "https://muz.apporange.space/get/cuts/15/c8/15c89b6d7c7e1a78495545e70fc22e49/71273614/muzapporangespace_Whethan_Grouplove_-_Upside_Down_b128f0d216.mp3"
+  },
+  {
+    "id": 6,
+    "title": "Fallen Leaves",
+    "artist": "Billy Talent",
+    "bitmapUri": "https://upload.wikimedia.org/wikipedia/ru/7/7e/Billy_Talent_II.png",
+    "trackUri": "https://muz.apporange.space/get/cuts/df/14/df1445959f859d8b530bad28392f786b/47970047/muzapporangespace_Billy_Talent_-_Fallen_Leaves_b128f0d199.mp3"
+  },
+  {
+    "id": 7,
+    "title": "Hurt",
+    "artist": "Oliver Tree",
+    "bitmapUri": "https://is5-ssl.mzstatic.com/image/thumb/Music113/v4/13/73/fc/1373fc61-4bac-82cc-ddb3-2afc3fd46a38/075679851413.jpg/268x0w.jpg",
+    "trackUri": "https://muz.apporange.space/get/cuts/6d/b1/6db1135d79a3a9c7a0cb42a887af3678/64572951/muzapporangespace_Oliver_Tree_-_Hurt_b128f0d146.mp3"
+  },
+  {
+    "id": 8,
+    "title": "Устрой дистрой",
+    "artist": "Noize MC",
+    "bitmapUri": "https://sun1-19.userapi.com/impg/fpKCRr3x4TwuJULznpedsPI2WunedZS8EfLY9g/yQWleZHIhTc.jpg?size=604x604&quality=96&sign=4ff4b07b7b843d428cd776cafabc2414&type=album",
+    "trackUri": "https://muz.apporange.space/get/cuts/66/b2/66b2e41207f8cf69543f85ff30d70519/63327682/muzapporangespace_Noize_MS_-_ustrojj_distrojj_b128f0d240.mp3"
+  },
+  {
+    "id": 9,
     "title": "Ice and Snow",
     "artist": "Rafael Krux",
     "bitmapUri": "https://www.pelicanwater.com/blog/wp-content/uploads/2019/02/cropped-Snow_Blog_Jan_2019-01.jpg",
     "trackUri": "https://freepd.com/music/Ice and Snow.mp3"
   },
   {
-    "id": 2,
+    "id": 10,
     "title": "Desert Fox",
     "artist": "Rafael Krux",
     "bitmapUri": "https://i.natgeofe.com/k/1db1b816-aa92-434e-994f-d3298c9f58f8/fennec-fox-hole.jpg",
     "trackUri": "https://freepd.com/music/Desert Fox.mp3"
   },
   {
-    "id": 3,
+    "id": 11,
     "title": "Coy Koi",
     "artist": "Frank Nora",
     "bitmapUri": "https://m.media-amazon.com/images/I/81y0ZQKOi0L._AC_SL1429_.jpg",
     "trackUri": "https://freepd.com/music/Coy Koi.mp3"
   },
   {
-    "id": 4,
+    "id": 12,
     "title": "Tarantella",
     "artist": "Kevin MacLeod",
     "bitmapUri": "https://cdn.britannica.com/00/9100-004-59A78AD8/tarantella-Napoli-August-Bournonville-members-New-York-1842.jpg",
     "trackUri": "https://freepd.com/music/Village Tarantella.mp3"
   },
   {
-    "id": 5,
+    "id": 13,
     "title": "Bit Bit Loop",
     "artist": "Kevin MacLeod",
     "bitmapUri": "https://d37oebn0w9ir6a.cloudfront.net/account_2263/Cover-EDMFEST-EUROPEepb0310_0e5dada680e923891ab80cf0f35e1758.jpg",

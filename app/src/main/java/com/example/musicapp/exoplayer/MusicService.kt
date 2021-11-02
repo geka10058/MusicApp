@@ -14,6 +14,7 @@ import com.example.musicapp.exoplayer.callbacks.MusicPlayerEventListener
 import com.example.musicapp.exoplayer.callbacks.MusicPlayerNotificationListener
 import com.example.musicapp.other.Constants.MEDIA_ROOT_ID
 import com.example.musicapp.other.Constants.NETWORK_ERROR
+import com.google.android.exoplayer2.C
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.ext.mediasession.MediaSessionConnector
@@ -67,7 +68,7 @@ class MusicService : MediaBrowserServiceCompat() {
 
         mediaSession = MediaSessionCompat(this, SERVICE_TAG).apply {
             setSessionActivity(activityIntent)
-            isActive = true //TODO
+            isActive = true
         }
 
         sessionToken = mediaSession.sessionToken
@@ -77,26 +78,31 @@ class MusicService : MediaBrowserServiceCompat() {
             mediaSession.sessionToken,
             MusicPlayerNotificationListener(this)
         ) {
-            currentSongDuration = exoPlayer.duration
+        currentSongDuration = if (exoPlayer.duration != C.TIME_UNSET) exoPlayer.duration else 0
+        //currentSongDuration = exoPlayer.duration
+        }
+        mediaSessionConnector = MediaSessionConnector(mediaSession).apply {
+            setPlaybackPreparer(MusicPlaybackPreparer(musicSource) {
+                currentPlayingSong = it
+                preparePlayer(musicSource.songs, it, true)
+            })
+            setQueueNavigator(MusicQueueNavigator())
+            setPlayer(exoPlayer)
         }
 
-        val musicPlaybackPreparer = MusicPlaybackPreparer(musicSource) {
+        /*val musicPlaybackPreparer = MusicPlaybackPreparer(musicSource) {
             currentPlayingSong = it
-            preparePlayer(
-                musicSource.songs,
-                it,
-                true
-            )
-        }
+            preparePlayer(musicSource.songs, it, true)
+        }*/
 
-        mediaSessionConnector = MediaSessionConnector(mediaSession)
+        /*mediaSessionConnector = MediaSessionConnector(mediaSession)
         mediaSessionConnector.setPlaybackPreparer(musicPlaybackPreparer)
         mediaSessionConnector.setQueueNavigator(MusicQueueNavigator())
-        mediaSessionConnector.setPlayer(exoPlayer)
+        mediaSessionConnector.setPlayer(exoPlayer)*/
 
         musicPlayerEventListener = MusicPlayerEventListener(this)
         exoPlayer.addListener(musicPlayerEventListener)
-        // TODO musicNotificationManager.showNotificaation(exoPlayer)
+        musicNotificationManager.showNotification(exoPlayer)
     }
 
     private inner class MusicQueueNavigator : TimelineQueueNavigator(mediaSession) {
@@ -111,14 +117,21 @@ class MusicService : MediaBrowserServiceCompat() {
         playNow: Boolean
     ) {
         val currentSongIndex = if (currentPlayingSong == null) 0 else songs.indexOf(itemToPlay)
-        exoPlayer.prepare(musicSource.asMediaSource(dataSourceFactory))
+        exoPlayer.run {
+            setMediaSource(musicSource.asMediaSource(dataSourceFactory))
+            prepare()
+            seekTo(currentSongIndex, 0L)
+            playWhenReady = playNow
+        }
+    /*exoPlayer.prepare(musicSource.asMediaSource(dataSourceFactory))
         exoPlayer.seekTo(currentSongIndex, 0L)
-        exoPlayer.playWhenReady = playNow
+        exoPlayer.playWhenReady = playNow*/
     }
 
     override fun onTaskRemoved(rootIntent: Intent?) {
         super.onTaskRemoved(rootIntent)
         exoPlayer.stop()
+        musicNotificationManager.removeNotification()
     }
 
     override fun onDestroy() {

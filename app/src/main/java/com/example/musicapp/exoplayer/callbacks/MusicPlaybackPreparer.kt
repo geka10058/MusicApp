@@ -8,6 +8,7 @@ import android.support.v4.media.session.PlaybackStateCompat
 import com.example.musicapp.data.Repository
 import com.example.musicapp.exoplayer.MusicSource
 import com.google.android.exoplayer2.ControlDispatcher
+import com.google.android.exoplayer2.ForwardingPlayer
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.ext.mediasession.MediaSessionConnector
 

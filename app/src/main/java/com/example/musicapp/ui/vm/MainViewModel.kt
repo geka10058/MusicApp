@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.example.musicapp.data.Track
 import com.example.musicapp.exoplayer.MusicServiceConnection
 import com.example.musicapp.exoplayer.isPlayEnabled
+import com.example.musicapp.exoplayer.isPlaying
 import com.example.musicapp.exoplayer.isPrepared
 import com.example.musicapp.other.Constants.MEDIA_ROOT_ID
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -61,19 +62,19 @@ class MainViewModel @Inject constructor(
         musicServiceConnection.transportControls.seekTo(position)
     }
 
-    //TODO если не работает что-то, то заменить на mediaitem.mediaID
     fun playOrToggleSong(mediaItem: Track, toggle: Boolean = false) {
         val isPrepared = playbackState.value?.isPrepared ?: false
-        if(isPrepared && mediaItem.title == currentPlayingSong.value?.getString(METADATA_KEY_MEDIA_ID)) {
+        if(isPrepared && mediaItem.id.toString() == currentPlayingSong.value?.getString(METADATA_KEY_MEDIA_ID)) {
             playbackState.value?.let{ playbackState ->
                 when {
-                    playbackState.isPrepared -> if (toggle) musicServiceConnection.transportControls.pause()
+                    //playbackState.isPrepared -> if (toggle) musicServiceConnection.transportControls.pause()
+                    playbackState.isPlaying -> if (toggle) musicServiceConnection.transportControls.pause()
                     playbackState.isPlayEnabled -> musicServiceConnection.transportControls.play()
                     else -> Unit
                 }
             }
         } else {
-            musicServiceConnection.transportControls.playFromMediaId(mediaItem.title, null)      //здесь тоже заменить на mediaID
+            musicServiceConnection.transportControls.playFromMediaId(mediaItem.id.toString(), null)      //здесь тоже заменить на mediaID
         }
     }
 
