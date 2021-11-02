@@ -43,7 +43,7 @@
         android:layout_height="75dp"
         android:background="@color/color_accent"
         android:baselineAligned="false"
-        android:elevation="30dp"
+        android:elevation="100dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
