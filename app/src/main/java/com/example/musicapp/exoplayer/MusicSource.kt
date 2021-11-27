@@ -13,10 +13,12 @@ import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
+import dagger.hilt.android.scopes.ServiceScoped
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
+@ServiceScoped
 class MusicSource @Inject constructor(
     private val tracksRepository: TracksRepository
 ) {
