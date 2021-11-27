@@ -3,7 +3,6 @@ package com.example.musicapp.di
 import android.app.Application
 import android.content.Context
 import android.content.res.AssetManager
-import com.example.musicapp.data.Repository
 import com.google.android.exoplayer2.C
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.audio.AudioAttributes
@@ -24,10 +23,6 @@ object ServiceModule {
     @ServiceScoped
     @Provides
     fun provideAssetManager(app: Application): AssetManager = app.assets
-
-    @ServiceScoped
-    @Provides
-    fun provideRepository(assetManager: AssetManager) = Repository(assetManager)
 
     @ServiceScoped
     @Provides

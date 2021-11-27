@@ -4,19 +4,22 @@ import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.MediaDescriptionCompat
 import android.support.v4.media.MediaMetadataCompat
 import androidx.core.net.toUri
-import com.example.musicapp.data.Repository
-import com.example.musicapp.exoplayer.State.*
+import com.example.musicapp.data.TracksRepository
+import com.example.musicapp.exoplayer.State.STATE_CREATED
+import com.example.musicapp.exoplayer.State.STATE_ERROR
+import com.example.musicapp.exoplayer.State.STATE_INITIALIZED
+import com.example.musicapp.exoplayer.State.STATE_INITIALIZING
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
-import dagger.Provides
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
 class MusicSource @Inject constructor(
-    private val repository: Repository) {
+    private val tracksRepository: TracksRepository
+) {
 
     var songs = emptyList<MediaMetadataCompat>()
 
@@ -39,7 +42,7 @@ class MusicSource @Inject constructor(
 
     suspend fun fetchMediaData() = withContext(Dispatchers.IO) {
         state = STATE_INITIALIZING
-        val allSongs = repository.catalog
+        val allSongs = tracksRepository.catalog
         songs = allSongs.map { song ->
             MediaMetadataCompat.Builder()
                 .putString(MediaMetadataCompat.METADATA_KEY_MEDIA_ID, song.id.toString())
