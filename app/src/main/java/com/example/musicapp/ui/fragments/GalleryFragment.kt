@@ -95,10 +95,10 @@ class GalleryFragment : Fragment(R.layout.fragment_galery) {
         layoutManager = LinearLayoutManager(requireContext())
     }
 
-    private fun switchViewPagerToCurrentTrack(track: Track) {
+    private fun switchViewPagerToCurrentTrack(track: Track, smoothScroll: Boolean = false) {
         val newItemIndex = swipeSongAdapter.tracks.indexOf(track)
         if (newItemIndex != -1) {
-            binding.vpPayer.currentItem = newItemIndex
+            binding.vpPayer.setCurrentItem(newItemIndex, smoothScroll)
             currentPayingSong = track
         }
     }
@@ -156,9 +156,10 @@ class GalleryFragment : Fragment(R.layout.fragment_galery) {
         mainViewModel.currentPlayingSong.observe(viewLifecycleOwner) {
             if (it == null) return@observe
 
+            val firstTime = currentPayingSong == null
             currentPayingSong = it.toTrack()
             glide.load(currentPayingSong?.bitmapUri).into(binding.playerAlbumImage)
-            switchViewPagerToCurrentTrack(currentPayingSong ?: return@observe)
+            switchViewPagerToCurrentTrack(currentPayingSong ?: return@observe, firstTime)
         }
 
         mainViewModel.playbackState.observe(viewLifecycleOwner){
