@@ -21,7 +21,9 @@ class SongAdapter @Inject constructor(
         holder.itemView.apply {
             text_view_title.text = track.title
             text_view_artist.text = track.artist
-            glide.load(track.bitmapUri).into(album_image_view)
+            glide.load(track.bitmapUri)
+                .centerCrop()
+                .into(album_image_view)
 
             setOnClickListener {
                 onItemClickListener?.let { click ->
