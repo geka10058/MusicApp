@@ -11,8 +11,8 @@ fun MediaMetadataCompat.toTrack(): Track? {
             it.mediaId?.toInt() ?: 0,
             it.title.toString(),
             it.subtitle.toString(),
-            it.mediaId.toString(),
-            it.iconBitmap.toString()
+            it.iconUri.toString(),
+            it.mediaUri.toString()
         )
     }
 }

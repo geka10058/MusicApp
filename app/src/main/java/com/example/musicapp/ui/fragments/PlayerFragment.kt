@@ -2,9 +2,7 @@ package com.example.musicapp.ui.fragments
 
 import android.os.Bundle
 import android.support.v4.media.session.PlaybackStateCompat
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -21,10 +19,10 @@ import com.example.musicapp.other.Status
 import com.example.musicapp.ui.vm.MainViewModel
 import com.example.musicapp.ui.vm.PlayerViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_player_item.*
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.fragment_player_item.seekBar
 
 @AndroidEntryPoint
 class PlayerFragment : Fragment(R.layout.fragment_player_item) {
@@ -96,7 +94,7 @@ class PlayerFragment : Fragment(R.layout.fragment_player_item) {
     }
 
     private fun subscribeToObservers(){
-        mainViewModel.mediaItems.observe(viewLifecycleOwner){
+        mainViewModel.mediaItems.observe(viewLifecycleOwner) {
             it?.let{ result ->
                 when(result.status) {
                     Status.SUCCESS -> {

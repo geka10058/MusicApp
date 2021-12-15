@@ -2,7 +2,6 @@ package com.example.musicapp.exoplayer
 
 import android.app.PendingIntent
 import android.content.Intent
-import android.media.session.MediaSession
 import android.os.Bundle
 import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.MediaDescriptionCompat
@@ -21,8 +20,12 @@ import com.google.android.exoplayer2.ext.mediasession.MediaSessionConnector
 import com.google.android.exoplayer2.ext.mediasession.TimelineQueueNavigator
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.*
 import javax.inject.Inject
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 
 private const val SERVICE_TAG = "MusicService"
 
@@ -78,8 +81,8 @@ class MusicService : MediaBrowserServiceCompat() {
             mediaSession.sessionToken,
             MusicPlayerNotificationListener(this)
         ) {
-        currentSongDuration = if (exoPlayer.duration != C.TIME_UNSET) exoPlayer.duration else 0
-        //currentSongDuration = exoPlayer.duration
+            currentSongDuration = if (exoPlayer.duration != C.TIME_UNSET) exoPlayer.duration else 0
+            //currentSongDuration = exoPlayer.duration
         }
         mediaSessionConnector = MediaSessionConnector(mediaSession).apply {
             setPlaybackPreparer(MusicPlaybackPreparer(musicSource) {

@@ -32,8 +32,8 @@
                 android:adjustViewBounds="true"
                 android:src="@drawable/ic_album_image"
                 tools:scaleType="centerCrop"/>
-        </androidx.cardview.widget.CardView>
 
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/text_view_title"

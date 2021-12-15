@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
@@ -24,13 +23,15 @@ import com.example.musicapp.other.Status
 import com.example.musicapp.ui.vm.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_galery.*
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.fragment_galery.recycler
 
 @AndroidEntryPoint
 class GalleryFragment : Fragment(R.layout.fragment_galery) {
+
     private var _binding: FragmentGaleryBinding? = null
     private val binding get() = requireNotNull(_binding)
+
     private var currentPayingSong: Track? = null
     private var playbackState: PlaybackStateCompat? = null
 
@@ -52,8 +53,6 @@ class GalleryFragment : Fragment(R.layout.fragment_galery) {
     ): View? {
         _binding = FragmentGaleryBinding.inflate(inflater, container, false)
         return binding.root
-
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -96,10 +95,10 @@ class GalleryFragment : Fragment(R.layout.fragment_galery) {
         layoutManager = LinearLayoutManager(requireContext())
     }
 
-    private fun switchViewPagerToCurrentTrack(track: Track) {
+    private fun switchViewPagerToCurrentTrack(track: Track, smoothScroll: Boolean = false) {
         val newItemIndex = swipeSongAdapter.tracks.indexOf(track)
         if (newItemIndex != -1) {
-            binding.vpPayer.currentItem = newItemIndex
+            binding.vpPayer.setCurrentItem(newItemIndex, smoothScroll)
             currentPayingSong = track
         }
     }
@@ -154,12 +153,13 @@ class GalleryFragment : Fragment(R.layout.fragment_galery) {
             }
         })*/
 
-        mainViewModel.currentPlayingSong.observe(viewLifecycleOwner){
+        mainViewModel.currentPlayingSong.observe(viewLifecycleOwner) {
             if (it == null) return@observe
 
+            val firstTime = currentPayingSong == null
             currentPayingSong = it.toTrack()
             glide.load(currentPayingSong?.bitmapUri).into(binding.playerAlbumImage)
-            switchViewPagerToCurrentTrack(currentPayingSong ?: return@observe)
+            switchViewPagerToCurrentTrack(currentPayingSong ?: return@observe, firstTime)
         }
 
         mainViewModel.playbackState.observe(viewLifecycleOwner){
